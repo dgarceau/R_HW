@@ -71,33 +71,28 @@ AAdf[1:4,]
 AAv <- as.character(AAdf[,2]) 
 names(AAv) <- AAdf[,1] 
 AAv
-is.vector(AAv)
-as.data.frame(as.numeric(sequencevector))
 
-is.data.frame(sequencevector)
 
-ORFs <- NULL
-  translate <- function(i, frame) {
-    seq <- substring(i, 1:nchar(i), 1:nchar(i))
+sequencevector
+sapply(sequencevector[i], function(sequencevector, frame="ALL"){
+    seq <- substring(sequencevector, 1:nchar(sequencevector), 1:nchar(sequencevector))
     if (frame==1) {
       ORF <- paste(seq[1:length(seq)], collapse="")
-  } else if(frame==2){
-    ORF <- paste(seq[2:length(seq)], collapse="")
-  } else if(frame==3){
-    ORF <- paste(seq[3:length(seq)], collapse="")
-  } else {
-    ORF <- c(paste(seq[1:length(seq)], collapse=""), 
-              paste(seq[2:length(seq)], collapse=""), 
-              paste(seq[3:length(seq)], collapse=""))
-}
+    } else if(frame==2){
+      ORF <- paste(seq[2:length(seq)], collapse="")
+    } else if(frame==3){
+      ORF <- paste(seq[3:length(seq)], collapse="")
+    } else {
+      ORF <- c(paste(seq[1:length(seq)], collapse=""), 
+               paste(seq[2:length(seq)], collapse=""), 
+               paste(seq[3:length(seq)], collapse=""))
+    }
     ORF <- gsub("(...)", "\\1_", ORF) 
     ORF <- unlist(strsplit(ORF, "_")) 
     ORF <- ORF[grep("^...$", ORF)]
     sequence_translation <- AAv[ORF]
     return(sequence_translation)
-     
-  }
-  
-translate(sequencevector,1:3)
-sequencevector
+    
+}
+     )
 
