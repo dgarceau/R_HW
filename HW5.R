@@ -33,3 +33,8 @@ reversecomplementer(x, "comp")
 # you can then perform each of the subfunctions within the function by entering a sequence, x, 
 # and specifying which output you would like 
 
+
+
+sequencevector <- c("ATGCGATCGGGCTAGGCT", "GTGGGCAAGATAGC", "GGGAAATTCCTGATCCTAG")
+# Here I created a vector of 3 different nucleotide sequences 
+
