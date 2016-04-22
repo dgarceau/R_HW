@@ -1,3 +1,5 @@
+### TASK 1
+
 x <- c("ATGCATTGGACGTTAG") 
 # Here I defined a nucleotide sequence as x 
 
@@ -35,6 +37,8 @@ reversecomplementer(x, "comp")
 
 
 
+### TASK 2
+
 sequencevector <- c("ATGCGATCGGGCTAGGCT", "GTGGGCAAGATAGC", "GGGAAATTCCTGATCCTAG")
 # Here I created a vector of 3 different nucleotide sequences by concatenating 3 sequences
 # together 
@@ -64,7 +68,8 @@ sequencevector
 # here I visualized my reverse complemented sequences and my original sequences 
 
 
-#
+### TASK 3
+
 sequencevector <- c("ATGCGATCGGGCTAGGCT", "GTGGGCAAGATAGC", "GGGAAATTCCTGATCCTAG")
 sequencematrix <- as.matrix(sequencevector)
 sequencematrix
@@ -91,8 +96,33 @@ ORF_sequencedf <- as.data.frame(ORF_sequencematrix)
 
 colnames(ORF_sequencedf) <- c("ORF1", "ORF2", "ORF3")
 # Here I renamed the columns in my ORF sequencematrix to read as ORF1-3
+# now the rows list the sequence number and the columns list the ORF
 
+ORF_sequencedf
 
+ORF1_translation <- NULL
+ORF2_translation <- NULL
+ORF3_translation <- NULL 
+# Here I created three empty vectors for the 3 ORFs where I can 
+# later deposit my translations of my 3 ORFs in my ORF sequence df
+# after performing a forward loop through the df with a function
+# that separates the sequences into codons, replaces codons with the
+# right AA, then collapses the AAs into a string, then binds all the 
+# vectors back into a df 
+
+AAdf <- read.table(file="http://faculty.ucr.edu/~tgirke/Documents/R_BioCond/My_R_Scripts/AA.txt", header=TRUE, sep="\t") 
+AAdf[1:4,]
+# this function imports the AAdf table of codon to AA translations
+
+AAv <- as.character(AAdf[,2]) 
+names(AAv) <- AAdf[,1] 
+AAv
+# there were a lot of extra unwanted columns in the AAdf table, here 
+# only the 2nd column that contains AA 1 letter symbols is kept and 
+# renamed AAv as a vector with a list of AAs as characters 
+# then the names of AAv are designated as their corresponding codons in 
+# the 1st column of AAdf, leaving a vector of AA characters with codon names
+# as AAv 
 
 ORFs <- NULL
 for(i in seq(sequencematrix[,]) {
@@ -104,12 +134,7 @@ for(i in seq(sequencematrix[,]) {
 }
 
 
-AAdf <- read.table(file="http://faculty.ucr.edu/~tgirke/Documents/R_BioCond/My_R_Scripts/AA.txt", header=TRUE, sep="\t") 
-AAdf[1:4,]
 
-AAv <- as.character(AAdf[,2]) 
-names(AAv) <- AAdf[,1] 
-AAv
 
 sequencevector
 sequencevector[1]
