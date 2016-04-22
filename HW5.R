@@ -124,57 +124,38 @@ AAv
 # the 1st column of AAdf, leaving a vector of AA characters with codon names
 # as AAv 
 
-ORFs <- NULL
-for(i in seq(sequencematrix[,]) {
-  revcomplement2 <- function(i){
-    revcomplement2 <- chartr("ATGC", "TACG", paste(rev(substring(i, 1:nchar(i), 1:nchar(i)) ), collapse="")) 
-    return(revcomplement2) 
+CODONs <- NULL
+CODONdf <- NULL
+for(i in 1:nrow(ORF_sequencedf[])) {
+  translator <- function(i) {
+  CODONs <- gsub("(...)", "\\1_", i) 
+  CODONs <- unlist(strsplit(CODONs, "_")) 
+  CODONs <- CODONs[grep("^...$", CODONs)]
+  Translation <- paste(AAv[CODONs], collapse="")
+  return(Translation)
   }
-  ORFs <- c(ORFs, revcomplement2(sequencevector[i]))
+  CODONdf <- rbind(CODONdf, translator(1:nrow(ORF_sequencedf[]))
 }
 
+Translation
+CODONdf
+class(CODONdf)
+translator(ORF_sequencedf[1,3])
 
-
-
-sequencevector
-sequencevector[1]
-ORF1 <- substring(sequencevector[1], 1)
-substring(sequencevector[1], 2)
-ORF31212 <- substring(sequencevector[1], 3)
-
-ORFy(seq)
-ORF2
-
+ORF_sequencedf 
+2:nrow(ORF_sequencedf)
+codonmaker(ORF_sequencedf[1,3])
 seq <- c("ATGATGATAG")
-seq <- substring(sequencevector, 1:nchar(sequencevector), 1:nchar(sequencevector))
+
 
 ORFg <- c("ATGGATAG")
 ORFg <- gsub("(...)", "\\1_", ORFg) 
 ORFg <- unlist(strsplit(ORFg, "_")) 
 ORFg <- ORFg[grep("^...$", ORFg)]
 ORFg
+# code that splits up sequence into codons 
 
-ORF1 <- function(z) {
-  ORFa <- substring(z, 1)
-  ORFa <- paste(ORFa, collapse="")
-  return(ORFa)
-}
 
-ORF2 <- function(z) {
-  ORFb <- substring(z, 2)
-  ORFb <- paste(ORFb, collapse="")
-  return(ORFb)
-}
-
-ORF3 <- function(z) {
-  ORFa <- substring(z, 3)
-  ORFa <- paste(ORFa, collapse="")
-  return(ORFa)
-}
-
-ORF1(seq)
-ORF2(seq)
-ORF3(seq)
 
 ORFgenerator <-- function(z, frame="ALL") 
 {
