@@ -63,7 +63,46 @@ revcomploop
 sequencevector
 # here I visualized my reverse complemented sequences and my original sequences 
 
+
+#
 sequencevector <- c("ATGCGATCGGGCTAGGCT", "GTGGGCAAGATAGC", "GGGAAATTCCTGATCCTAG")
+sequencematrix <- as.matrix(sequencevector)
+sequencematrix
+# Here I am again using the sequence vector as an example of a list of DNA sequences
+# next I made the sequence vector into a matrix
+
+ORF1 <- function(x){paste(substring(x, 1))}
+ORF2 <- function(x){paste(substring(x, 2))}
+ORF3 <- function(x){paste(substring(x, 3))}
+# Here I created three different functions which paste a substring of a string
+# starting at the first, 2nd, and 3rd character in the string
+# in this way, I can get the 1st, 2nd, and 3rd ORF of a DNA sequence 
+
+ORF_sequencematrix <- cbind (ORF1(sequencematrix), ORF2(sequencematrix), ORF3(sequencematrix))
+# Here I performed the ORF1-3 functions on my sequence matrix.
+# With each ORF function, I generated a new matrix with rows 1-3 being 
+# either ORF 1, 2, or 3. 
+# I think combined these three new matrices by column with cbind, to create
+# one large matrix listing the three sequences by row and the three different
+# ORFs by column
+
+ORF_sequencedf <- as.data.frame(ORF_sequencematrix)
+# Here I converted my new matrix into a data frame 
+
+colnames(ORF_sequencedf) <- c("ORF1", "ORF2", "ORF3")
+# Here I renamed the columns in my ORF sequencematrix to read as ORF1-3
+
+
+
+ORFs <- NULL
+for(i in seq(sequencematrix[,]) {
+  revcomplement2 <- function(i){
+    revcomplement2 <- chartr("ATGC", "TACG", paste(rev(substring(i, 1:nchar(i), 1:nchar(i)) ), collapse="")) 
+    return(revcomplement2) 
+  }
+  ORFs <- c(ORFs, revcomplement2(sequencevector[i]))
+}
+
 
 AAdf <- read.table(file="http://faculty.ucr.edu/~tgirke/Documents/R_BioCond/My_R_Scripts/AA.txt", header=TRUE, sep="\t") 
 AAdf[1:4,]
@@ -72,16 +111,75 @@ AAv <- as.character(AAdf[,2])
 names(AAv) <- AAdf[,1] 
 AAv
 
-
 sequencevector
-sapply(sequencevector[i], function(sequencevector, frame="ALL"){
-    seq <- substring(sequencevector, 1:nchar(sequencevector), 1:nchar(sequencevector))
-    if (frame==1) {
-      ORF <- paste(seq[1:length(seq)], collapse="")
-    } else if(frame==2){
-      ORF <- paste(seq[2:length(seq)], collapse="")
-    } else if(frame==3){
-      ORF <- paste(seq[3:length(seq)], collapse="")
+sequencevector[1]
+ORF1 <- substring(sequencevector[1], 1)
+substring(sequencevector[1], 2)
+ORF31212 <- substring(sequencevector[1], 3)
+
+ORFy(seq)
+ORF2
+
+seq <- c("ATGATGATAG")
+seq <- substring(sequencevector, 1:nchar(sequencevector), 1:nchar(sequencevector))
+
+ORFg <- c("ATGGATAG")
+ORFg <- gsub("(...)", "\\1_", ORFg) 
+ORFg <- unlist(strsplit(ORFg, "_")) 
+ORFg <- ORFg[grep("^...$", ORFg)]
+ORFg
+
+ORF1 <- function(z) {
+  ORFa <- substring(z, 1)
+  ORFa <- paste(ORFa, collapse="")
+  return(ORFa)
+}
+
+ORF2 <- function(z) {
+  ORFb <- substring(z, 2)
+  ORFb <- paste(ORFb, collapse="")
+  return(ORFb)
+}
+
+ORF3 <- function(z) {
+  ORFa <- substring(z, 3)
+  ORFa <- paste(ORFa, collapse="")
+  return(ORFa)
+}
+
+ORF1(seq)
+ORF2(seq)
+ORF3(seq)
+
+ORFgenerator <-- function(z, frame="ALL") 
+{
+  if (frame=="1") {
+    ORF <- paste((substring(z, 1), collapse="")) 
+  } else if(frame=="2"){
+    ORF <- paste((substring(z, 2), collapse="")) 
+  } else if(frame=="3"){
+    ORF <- paste((substring(z, 3), collapse="")) 
+  } else {
+    ORF <- c(paste(seq[1:length(seq)], collapse=""), 
+             paste(seq[2:length(seq)], collapse=""), 
+             paste(seq[3:length(seq)], collapse=""))
+  }
+  ORF <- gsub("(...)", "\\1_", ORF) 
+  ORF <- unlist(strsplit(ORF, "_")) 
+  ORF <- ORF[grep("^...$", ORF)]
+  sequence_translation <- AAv[ORF]
+  return(sequence_translation)
+
+
+#sapply(sequencevector[i], function(sequencevector, frame="ALL"){
+sapply(sequencevector, function(z, frame="ALL") 
+{
+    if (frame=="1") {
+      ORF <- paste((substring(sequencevector[1], 1), collapse="")) 
+    } else if(frame=="2"){
+      ORF <- paste((substring(sequencevector[1], 2), collapse="")) 
+    } else if(frame=="3"){
+      ORF <- paste((substring(sequencevector[1], 3), collapse="")) 
     } else {
       ORF <- c(paste(seq[1:length(seq)], collapse=""), 
                paste(seq[2:length(seq)], collapse=""), 
@@ -91,8 +189,9 @@ sapply(sequencevector[i], function(sequencevector, frame="ALL"){
     ORF <- unlist(strsplit(ORF, "_")) 
     ORF <- ORF[grep("^...$", ORF)]
     sequence_translation <- AAv[ORF]
-    return(sequence_translation)
+    return(as.matrix(sequence_translation))
     
-}
-     )
+} )
 
+translate(sequencevector, frame="1")
+sequencevector
